@@ -1,0 +1,6 @@
+framework module Pods_GoodTalk {
+  umbrella header "Pods-GoodTalk-umbrella.h"
+
+  export *
+  module * { export * }
+}
