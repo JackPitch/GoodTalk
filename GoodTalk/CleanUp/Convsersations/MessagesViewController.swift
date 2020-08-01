@@ -109,7 +109,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     }
     
     func setupSearchBar() {
-        let hostingController = UIHostingController(rootView: CustomSearchBarBackground())
+        let hostingController = UIHostingController(rootView: SearchBackground())
         view.addSubview(hostingController.view)
         hostingController.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 25, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.bounds.width - 120, height: 100)
         hostingController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -209,6 +209,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleCancelSearch()
+        UIApplication.shared.resignFirstResponder()
         let message = messages[indexPath.row]
         let newChatRepresentable = ChatView(observedUser: ObservedUser(chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? ""), chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? "")
         let hostingController = UIHostingController(rootView: newChatRepresentable)

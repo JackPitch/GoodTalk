@@ -10,7 +10,6 @@ import SwiftUI
 import Firebase
 
 
-
 class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
     
     var users = [User]()
@@ -109,7 +108,7 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
     
     let searchBarTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Find User"
+        textField.placeholder = "Search Email"
         return textField
     }()
     
@@ -128,7 +127,7 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
     }
     
     func setupSearchBar() {
-        let hostingController = UIHostingController(rootView: CustomSearchBarBackground(shadowPadding: 16, searchColor: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), glassColor: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))))
+        let hostingController = UIHostingController(rootView: SearchBackground(shadowPadding: 16, searchColor: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), glassColor: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))))
         view.addSubview(hostingController.view)
         hostingController.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 25, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.bounds.width - 120, height: 100)
         hostingController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -152,7 +151,7 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
         if(filter.isEmpty) {
             filteredUsers = [User]()
         } else {
-         filteredUsers = users.filter { ($0.name?.lowercased().contains(filter.lowercased()) ?? false) }
+            filteredUsers = users.filter { ($0.email?.lowercased().starts(with: filter.lowercased()) ?? false) }
         }
 
         updateData(users: filteredUsers, animated: true)
@@ -182,23 +181,11 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
         if(filter.isEmpty) {
             filteredUsers = [User]()
         } else {
-         filteredUsers = users.filter { ($0.name?.lowercased().contains(filter.lowercased()) ?? false) }
+            filteredUsers = users.filter { ($0.email?.lowercased().starts(with: filter.lowercased()) ?? false) }
         }
 
         updateData(users: filteredUsers, animated: true)
         
         return false
     }
-    
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        hostingController.view.alpha = 1
-//        cancelSearchButton.isHidden = true
-//        tableView.allowsSelection = true
-//
-//        guard let filter = textField.text else { return }
-//
-//        filteredUsers = users.filter { ($0.name?.lowercased().contains(filter.lowercased()) ?? false) }
-//
-//        updateData(users: filteredUsers, animated: true)
-//    }
 }

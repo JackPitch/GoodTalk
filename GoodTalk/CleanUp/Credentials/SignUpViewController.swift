@@ -139,7 +139,24 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     }
 
     @objc func handleCreateAccount() {
-        createUser()
+
+        nameSection.textField.resignFirstResponder()
+        emailSection.textField.resignFirstResponder()
+        passwordSection.textField.resignFirstResponder()
+
+        guard let email = emailSection.textField.text else { return }
+        guard let password = passwordSection.textField.text else { return }
+        guard let name = nameSection.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        
+        let totalCount = email.count + password.count + name.count
+        
+        if(totalCount == 0) {
+            self.presentAlert(message: "Please Fill Empty Form")
+        } else if (name.count < 3) {
+            self.presentAlert(message: "Name Must Be At Least 3 Characters")
+        } else {
+            registerToFirebase(userEmail: email, userPassword: password, username: name)
+        }
     }
 
     let createButton: UIButton = {
@@ -152,60 +169,23 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     }()
 
     //MARK:- Create User via Firebase
-
-    func createUser() {
-        nameSection.textField.resignFirstResponder()
-        emailSection.textField.resignFirstResponder()
-        passwordSection.textField.resignFirstResponder()
-
-        guard let email = emailSection.textField.text else { return }
-        guard let password = passwordSection.textField.text else { return }
-        guard let name = nameSection.textField.text else { return }
-
-        Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
-            if name.count < 3 {
-                print("name must be at least 3 characters")
-                self.presentAlert(message: "Name Must Be At Least 3 Characters")
-                return
-            }
-
+    
+    private func registerToFirebase(userEmail: String, userPassword: String, username: String) {
+        
+        Auth.auth().createUser(withEmail: userEmail, password: userPassword) { (result, err) in
             if let err = err {
                 print("error creating user", err)
                 self.presentAlert(message: err.localizedDescription)
                 return
             }
-
+            
             self.successVC.modalPresentationStyle = .overFullScreen
             self.successVC.modalTransitionStyle = .crossDissolve
             self.present(self.successVC, animated: true)
 
             guard let uid = result?.user.uid else { return }
 
-            if self.chosenImageView.image == UIImage() {
-                if let imageData = UIImage(systemName: "person.circle")?.jpegData(compressionQuality: 0.1) {
-                    let imageUUID = UUID().uuidString
-
-                    let storageRef = Storage.storage().reference().child("profile_images").child("\(imageUUID).png")
-
-                    storageRef.putData(imageData, metadata: nil) { (metadata, err) in
-                        if let err = err {
-                            print("error uploadig image to firebase", err)
-                            return
-                        }
-
-                        storageRef.downloadURL { (url, err) in
-                            guard let profileImageUrl = url?.absoluteString else {
-                                print("error getting downloadUrl", err as Any)
-                                return
-                            }
-
-                            let values = ["name": name, "email": email, "imageUrl": profileImageUrl, "id": uid]
-
-                            self.registerToDatabase(uid: uid, values: values)
-                        }
-                    }
-                }
-            } else {
+            if self.chosenImageView.image != UIImage() {
                 if let imageData = self.chosenImageView.image?.jpegData(compressionQuality: 0.1) {
 
                     let imageUUID = UUID().uuidString
@@ -224,15 +204,19 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
                                 return
                             }
 
-                            let values = ["name": name, "email": email, "imageUrl": profileImageUrl]
-
+                            let values = ["name": username, "email": userEmail, "imageUrl": profileImageUrl]
+                            
                             self.registerToDatabase(uid: uid, values: values)
                         }
                     }
                 }
+            } else {
+                print("no image selected")
+                
+                let values = ["name": username, "email": userEmail, "imageUrl": ""]
+                
+                self.registerToDatabase(uid: uid, values: values)
             }
-            print("successfully created user! with email: \(email) and password: \(password)")
-
         }
     }
 
@@ -248,8 +232,10 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
                 return
             }
         }
-        self.successVC.dismiss(animated: true, completion: nil)
-        self.dismiss(animated: true, completion: self.delegate.didCreateUser)
+        
+        self.successVC.dismiss(animated: true) {
+            self.dismiss(animated: true, completion: self.delegate.didCreateUser)
+        }
     }
 }
 

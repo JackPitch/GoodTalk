@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let messagesVC = MessagesViewController()
+            let hostingController = UIHostingController(rootView: ForgotView())
             window.rootViewController = UINavigationController(rootViewController: messagesVC)
             self.window = window
             window.makeKeyAndVisible()

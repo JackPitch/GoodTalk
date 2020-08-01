@@ -25,16 +25,16 @@ class MessageCell: UITableViewCell {
         profileView.anchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 75, height: 75)
         profileView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
+        addSubview(messageTimeLabel)
+        messageTimeLabel.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
+        messageTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
         addSubview(textMessageLabel)
         textMessageLabel.anchor(top: nil, left: profileView.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 20, paddingBottom: 16, paddingRight: 0, width: 200, height: 0)
         
         addSubview(nameLabel)
-        nameLabel.anchor(top: nil, left: profileView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 20, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        nameLabel.anchor(top: topAnchor, left: profileView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 20, paddingBottom: 0, paddingRight: 0, width: 150, height: 0)
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
-        addSubview(messageTimeLabel)
-        messageTimeLabel.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
-        messageTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     func set(message: Message) {
@@ -84,8 +84,12 @@ class MessageCell: UITableViewCell {
         Database.database().reference().child("users").child(forName).observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let imageUrl = dictionary["imageUrl"] as! String
-                guard let url = URL(string: imageUrl) else { return }
-                self.profileView.sd_setImage(with: url)
+                if imageUrl == "" {
+                    self.profileView.image = UIImage(systemName: "person.crop.circle")
+                } else {
+                    guard let url = URL(string: imageUrl) else { return }
+                    self.profileView.sd_setImage(with: url)
+                }
             }
         }
     }

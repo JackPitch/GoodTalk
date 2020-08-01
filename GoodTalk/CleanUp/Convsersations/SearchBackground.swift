@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CustomSearchBarBackground: View {
+struct SearchBackground: View {
     @State var shadowPadding: CGFloat = 0
     @State var searchColor = Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))
     @State var glassColor = Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
@@ -39,6 +39,6 @@ struct CustomSearchBarBackground: View {
 
 struct CustomSearchBarBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CustomSearchBarBackground()
+        SearchBackground()
     }
 }

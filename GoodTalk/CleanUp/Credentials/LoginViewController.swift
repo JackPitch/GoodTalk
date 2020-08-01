@@ -11,7 +11,14 @@ import Firebase
 
 var screen = UIScreen.main.bounds
 
-class LoginViewController: UIViewController, SignUpDelegate {
+class LoginViewController: UIViewController, SignUpDelegate, ForgotPasswordDelegate {
+    
+    func didResetPassword() {
+        let successResetVC = SuccessResetViewController()
+        successResetVC.modalPresentationStyle = .overFullScreen
+        successResetVC.modalTransitionStyle = .crossDissolve
+        present(successResetVC, animated: true)
+    }
     
     var messagesViewController: MessagesViewController?
         
@@ -34,7 +41,7 @@ class LoginViewController: UIViewController, SignUpDelegate {
         setupBackground()
         setupTextFields()
         setupLoginButton()
-        
+        setupForgotPassword()
         emailTextField.textContentType = .init(rawValue: "")
         passwordTextField.textContentType = .init(rawValue: "")
     }
@@ -163,8 +170,13 @@ class LoginViewController: UIViewController, SignUpDelegate {
         loginButton.anchor(top: loginButtonView.view.topAnchor, left: loginButtonView.view.leftAnchor, bottom: loginButtonView.view.bottomAnchor, right: loginButtonView.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
+    func setupForgotPassword() {
+        view.addSubview(forgotPasswordButton)
+        forgotPasswordButton.anchor(top: signUpButton.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        forgotPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
     @objc func handleLogin() {
-
 
         self.emailTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
@@ -238,11 +250,27 @@ class LoginViewController: UIViewController, SignUpDelegate {
         return button
     }()
     
+    let forgotPasswordButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Forgot Password?", for: .normal)
+        button.setTitleColor(.gray, for: .normal)
+        button.addTarget(self, action: #selector(handleForgotPassword), for: .touchUpInside)
+        return button
+    }()
+    
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
+    
+    @objc func handleForgotPassword() {
+        let forgotVC = ForgotPasswordViewController()
+        forgotVC.delegate = self
+        forgotVC.modalPresentationStyle = .overFullScreen
+        forgotVC.modalTransitionStyle = .crossDissolve
+        present(forgotVC, animated: true)
+    }
 }
 
     //MARK:- SwiftUI View Helpers

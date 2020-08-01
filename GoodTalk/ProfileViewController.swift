@@ -103,23 +103,33 @@ class ProfileViewController: UIViewController {
             Database.database().reference().child("users").child(Auth.auth().currentUser?.uid ?? "").observeSingleEvent(of: .value) { (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     let user = User(dictionary: dictionary)
-                    guard let imageUrl = URL(string: user.imageUrl ?? "") else { return }
                     
-                    DispatchQueue.main.async {
-                        self.profileImageView.sd_setImage(with: imageUrl)
-                        self.usernameLabel.text = user.name
-                    }
+
                     
-                    self.getData(from: imageUrl) { (data, _, err) in
-                        if let err = err {
-                            print("error getting image info, see profileVC", err)
-                            return
+                    if user.imageUrl != "" {
+                        guard let imageUrl = URL(string: user.imageUrl ?? "") else { return }
+                        
+                        DispatchQueue.main.async {
+                            self.profileImageView.sd_setImage(with: imageUrl)
+                            self.usernameLabel.text = user.name
                         }
                         
-                        guard let data = data else { return }
-                        
-                        if let downloadedImage = UIImage(data: data) {
-                            self.imageCache.setObject(downloadedImage, forKey: "profileImage")
+                        self.getData(from: imageUrl) { (data, _, err) in
+                            if let err = err {
+                                print("error getting image info, see profileVC", err)
+                                return
+                            }
+                            
+                            guard let data = data else { return }
+                            
+                            if let downloadedImage = UIImage(data: data) {
+                                self.imageCache.setObject(downloadedImage, forKey: "profileImage")
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.profileImageView.image = UIImage(systemName: "person.crop.circle")
+                            self.usernameLabel.text = user.name
                         }
                     }
                 }

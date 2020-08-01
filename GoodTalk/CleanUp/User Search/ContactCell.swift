@@ -22,13 +22,20 @@ class ContactCell: UITableViewCell {
         nameLabel.anchor(top: nil, left: profileImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
+        addSubview(emailLabel)
+        emailLabel.anchor(top: nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
     }
     
     func set(user: User) {
         nameLabel.text = user.name
-        
-        if let url = URL(string: user.imageUrl ?? "") {
-            profileImageView.sd_setImage(with: url)
+        emailLabel.text = user.email
+        if user.imageUrl == "" {
+            profileImageView.image = UIImage(systemName: "person.crop.circle")
+        } else {
+            if let url = URL(string: user.imageUrl ?? "") {
+                profileImageView.sd_setImage(with: url)
+            }
         }
     }
     
@@ -42,7 +49,15 @@ class ContactCell: UITableViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "text message"
+        label.text = "name here"
+        return label
+    }()
+    
+    let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "email here"
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .gray
         return label
     }()
     
