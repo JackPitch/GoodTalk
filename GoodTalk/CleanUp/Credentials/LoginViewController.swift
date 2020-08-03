@@ -11,7 +11,7 @@ import Firebase
 
 var screen = UIScreen.main.bounds
 
-class LoginViewController: UIViewController, SignUpDelegate, ForgotPasswordDelegate {
+class LoginViewController: UIViewController, SignUpDelegate, ForgotPasswordDelegate, UITextFieldDelegate {
     
     func didResetPassword() {
         let successResetVC = SuccessResetViewController()
@@ -100,12 +100,14 @@ class LoginViewController: UIViewController, SignUpDelegate, ForgotPasswordDeleg
         textBackgroundView.anchor(top: cardView.view.topAnchor, left: cardView.view.leftAnchor, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 40, paddingBottom: 0, paddingRight: 0, width: screen.width - 80, height: 50)
         
         view.addSubview(emailTextField)
+        emailTextField.delegate = self
         emailTextField.anchor(top: textBackgroundView.topAnchor, left: textBackgroundView.leftAnchor, bottom: textBackgroundView.bottomAnchor, right: textBackgroundView.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 4, paddingRight: 8, width: 0, height: 0)
         
         view.addSubview(textBackgroundView2)
         textBackgroundView2.anchor(top: nil, left: cardView.view.leftAnchor, bottom: cardView.view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 40, paddingBottom: 20, paddingRight: 0, width: screen.width - 80, height: 50)
 
         view.addSubview(passwordTextField)
+        passwordTextField.delegate = self
         passwordTextField.anchor(top: textBackgroundView2.topAnchor, left: textBackgroundView2.leftAnchor, bottom: textBackgroundView2.bottomAnchor, right: textBackgroundView2.rightAnchor, paddingTop: 4, paddingLeft: 8, paddingBottom: 4, paddingRight: 8, width: 0, height: 0)
         
         let emailIcon = UIHostingController(rootView: TextIcon(named: "envelope.fill"))
@@ -121,6 +123,11 @@ class LoginViewController: UIViewController, SignUpDelegate, ForgotPasswordDeleg
         view.addSubview(signUpButton)
         signUpButton.anchor(top: cardView.view.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     let emailTextField: UITextField = {

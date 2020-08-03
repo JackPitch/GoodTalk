@@ -32,6 +32,7 @@ class ContactCell: UITableViewCell {
         emailLabel.text = user.email
         if user.imageUrl == "" {
             profileImageView.image = UIImage(systemName: "person.crop.circle")
+            profileImageView.tintColor = .gray
         } else {
             if let url = URL(string: user.imageUrl ?? "") {
                 profileImageView.sd_setImage(with: url)
@@ -40,7 +41,7 @@ class ContactCell: UITableViewCell {
     }
     
     let profileImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "person"))
+        let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleToFill
         iv.layer.cornerRadius = 37.5

@@ -39,6 +39,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     var messagesDictionary = [String: Message]()
     var tableView: UITableView!
     var isLogged = false
+    var isSearching = false
     var timer: Timer?
     var currentUser = ""
     
@@ -51,10 +52,21 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         setupTableView()
         setupDataSource()
         setupUserSearchButton()
+        //setupTapDismiss()
         tableView.separatorColor = .clear
         self.title = "Conversations"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle.fill"), style: .plain, target: self, action: #selector(handleGoToProfile))
+    
+    }
+    
+    func setupTapDismiss() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleDismissKeyboard() {
+        view.endEditing(true)
     }
     
     func checkIfUserIsLoggedIn() {
@@ -126,6 +138,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        isSearching = true
         cancelSearchButton.isHidden = false
         guard let filter = textField.text else { return }
 
@@ -134,8 +147,8 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         } else {
          filteredMessages = messages.filter {
             $0.toName == currentUser ?
-                ($0.fromName?.lowercased().contains(filter.lowercased())
-                    ?? false) : ($0.toName?.lowercased().contains(filter.lowercased()) ?? false)
+                ($0.fromName?.lowercased().starts(with: filter.lowercased())
+                    ?? false) : ($0.toName?.lowercased().starts(with: filter.lowercased()) ?? false)
             }
         }
 
@@ -143,17 +156,18 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        tableView.allowsSelection = false
+        isSearching = true
         cancelSearchButton.isHidden = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        isSearching = false
         cancelSearchButton.isHidden = true
-        tableView.allowsSelection = true
         updateData(messages: messages, animated: true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        isSearching = true
         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
         
         cancelSearchButton.isHidden = true
@@ -165,15 +179,14 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         } else {
          filteredMessages = messages.filter {
             $0.toName == currentUser ?
-                ($0.fromName?.lowercased().contains(filter.lowercased())
-                    ?? false) : ($0.toName?.lowercased().contains(filter.lowercased()) ?? false)
+                ($0.fromName?.lowercased().starts(with: filter.lowercased())
+                    ?? false) : ($0.toName?.lowercased().starts(with: filter.lowercased()) ?? false)
             }
         }
 
         updateData(messages: filteredMessages, animated: true)
         
-        tableView.allowsSelection = true
-        return false
+        return true
     }
     
     //MARK:- NSDiffableDataSource
@@ -208,9 +221,10 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        handleCancelSearch()
         UIApplication.shared.resignFirstResponder()
-        let message = messages[indexPath.row]
+        let message = isSearching ? filteredMessages[indexPath.row] : messages[indexPath.row]
+        
+        handleCancelSearch()
         let newChatRepresentable = ChatView(observedUser: ObservedUser(chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? ""), chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? "")
         let hostingController = UIHostingController(rootView: newChatRepresentable)
         navigationController?.pushViewController(hostingController, animated: true)

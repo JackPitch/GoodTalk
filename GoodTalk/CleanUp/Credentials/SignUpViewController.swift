@@ -34,10 +34,27 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
         setupProfileImage()
         setupBackgrounds()
         setupCredentialsForm()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= (keyboardSize.height / 3)
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 
     //MARK:- Profile Image Setup & Picker
@@ -82,6 +99,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     @objc func handleImagePicker() {
         print("present image picker")
         present(imagePicker, animated: true)
+        self.nameSection.textField.endEditing(true)
+        self.emailSection.textField.endEditing(true)
+        self.passwordSection.textField.endEditing(true)
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -234,7 +254,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
         }
         
         self.successVC.dismiss(animated: true) {
-            self.dismiss(animated: true, completion: self.delegate.didCreateUser)
+            self.dismiss(animated: true) {
+                self.delegate.didCreateUser()
+            }
         }
     }
 }

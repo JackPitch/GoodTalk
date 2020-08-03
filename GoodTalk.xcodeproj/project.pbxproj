@@ -38,7 +38,6 @@
 		8120C4D024C72CD700C74CF6 /* UserSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4CF24C72CD700C74CF6 /* UserSearchButton.swift */; };
 		8120C4D224C72DFD00C74CF6 /* ResizableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4D124C72DFD00C74CF6 /* ResizableTextField.swift */; };
 		8120C4D524CCD31D00C74CF6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4D424CCD31D00C74CF6 /* LoadingViewController.swift */; };
-		8120C4E024CF756400C74CF6 /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4DF24CF756400C74CF6 /* GradientBackground.swift */; };
 		8120C4E824D0A1F300C74CF6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4E724D0A1F300C74CF6 /* ForgotPasswordViewController.swift */; };
 		FF28F9262EC65B21645674E8 /* Pods_GoodTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02876B50C627F7F2C38D1A2 /* Pods_GoodTalk.framework */; };
 /* End PBXBuildFile section */
@@ -79,7 +78,6 @@
 		8120C4CF24C72CD700C74CF6 /* UserSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchButton.swift; sourceTree = "<group>"; };
 		8120C4D124C72DFD00C74CF6 /* ResizableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableTextField.swift; sourceTree = "<group>"; };
 		8120C4D424CCD31D00C74CF6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		8120C4DF24CF756400C74CF6 /* GradientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackground.swift; sourceTree = "<group>"; };
 		8120C4E724D0A1F300C74CF6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		E02876B50C627F7F2C38D1A2 /* Pods_GoodTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -127,12 +125,11 @@
 			isa = PBXGroup;
 			children = (
 				8120C49724C5DBE900C74CF6 /* CleanUp */,
+				8120C4AA24C5DBE900C74CF6 /* ProfileViewController.swift */,
 				8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */,
 				8120C4A624C5DBE900C74CF6 /* Extension.swift */,
-				8120C4AA24C5DBE900C74CF6 /* ProfileViewController.swift */,
 				8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */,
 				8120C48724C5DBAC00C74CF6 /* ContentView.swift */,
-				8120C4DF24CF756400C74CF6 /* GradientBackground.swift */,
 				8120C48924C5DBB200C74CF6 /* Assets.xcassets */,
 				8120C48E24C5DBB200C74CF6 /* LaunchScreen.storyboard */,
 				8120C4C924C5DD1800C74CF6 /* GoogleService-Info.plist */,
@@ -349,7 +346,6 @@
 				8120C4D524CCD31D00C74CF6 /* LoadingViewController.swift in Sources */,
 				8120C48424C5DBAC00C74CF6 /* AppDelegate.swift in Sources */,
 				8120C4B824C5DBE900C74CF6 /* UrlImageModel.swift in Sources */,
-				8120C4E024CF756400C74CF6 /* GradientBackground.swift in Sources */,
 				8120C4C024C5DBE900C74CF6 /* ChatRepresentable.swift in Sources */,
 				8120C48624C5DBAC00C74CF6 /* SceneDelegate.swift in Sources */,
 				8120C4B424C5DBE900C74CF6 /* EmptySearchView.swift in Sources */,

@@ -86,6 +86,7 @@ class MessageCell: UITableViewCell {
                 let imageUrl = dictionary["imageUrl"] as! String
                 if imageUrl == "" {
                     self.profileView.image = UIImage(systemName: "person.crop.circle")
+                    self.profileView.tintColor = .gray
                 } else {
                     guard let url = URL(string: imageUrl) else { return }
                     self.profileView.sd_setImage(with: url)
@@ -95,7 +96,7 @@ class MessageCell: UITableViewCell {
     }
         
     let profileView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "person.circle"))
+        let iv = UIImageView()
         iv.tintColor = .gray
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 37.5

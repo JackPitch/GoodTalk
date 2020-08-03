@@ -8,15 +8,14 @@
 
 import SwiftUI
 
-class TextSection: UIView {
+class TextSection: UIView, UITextFieldDelegate {
     
     init(imageName: String, textName: String) {
         super.init(frame: .zero)
         
         textField.placeholder = textName
-        
-        
         addSubview(textField)
+        textField.delegate = self
         textField.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: screen.width - 160, height: 50)
         textField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
@@ -28,6 +27,11 @@ class TextSection: UIView {
         addSubview(divider)
         divider.anchor(top: iconImage.view.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: screen.width - 110, height: 3)
         divider.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     let textField: UITextField = {
