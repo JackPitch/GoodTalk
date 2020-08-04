@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8120C48424C5DBAC00C74CF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */; };
 		8120C48624C5DBAC00C74CF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */; };
-		8120C48824C5DBAC00C74CF6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C48724C5DBAC00C74CF6 /* ContentView.swift */; };
 		8120C48A24C5DBB200C74CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8120C48924C5DBB200C74CF6 /* Assets.xcassets */; };
 		8120C48D24C5DBB200C74CF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8120C48C24C5DBB200C74CF6 /* Preview Assets.xcassets */; };
 		8120C49024C5DBB200C74CF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8120C48E24C5DBB200C74CF6 /* LaunchScreen.storyboard */; };
@@ -48,7 +47,6 @@
 		8120C48024C5DBAC00C74CF6 /* GoodTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8120C48724C5DBAC00C74CF6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8120C48924C5DBB200C74CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8120C48C24C5DBB200C74CF6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8120C48F24C5DBB200C74CF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */,
 				8120C4A624C5DBE900C74CF6 /* Extension.swift */,
 				8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */,
-				8120C48724C5DBAC00C74CF6 /* ContentView.swift */,
 				8120C48924C5DBB200C74CF6 /* Assets.xcassets */,
 				8120C48E24C5DBB200C74CF6 /* LaunchScreen.storyboard */,
 				8120C4C924C5DD1800C74CF6 /* GoogleService-Info.plist */,
@@ -364,7 +361,6 @@
 				8120C4C724C5DBE900C74CF6 /* UserSearchController.swift in Sources */,
 				8120C4BB24C5DBE900C74CF6 /* PhotoUploadButton.swift in Sources */,
 				8120C4C424C5DBE900C74CF6 /* TextSection.swift in Sources */,
-				8120C48824C5DBAC00C74CF6 /* ContentView.swift in Sources */,
 				8120C4B924C5DBE900C74CF6 /* User.swift in Sources */,
 				8120C4C224C5DBE900C74CF6 /* ProfileViewController.swift in Sources */,
 				8120C4E824D0A1F300C74CF6 /* ForgotPasswordViewController.swift in Sources */,
