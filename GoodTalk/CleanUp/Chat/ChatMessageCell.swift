@@ -21,7 +21,7 @@ class ChatMessageCell: UITableViewCell {
         addSubview(bubbleView)
         addSubview(messageLabel)
         addSubview(messageImageView)
-        messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: screen.width - 100).isActive = true
     }
     
     func set(message: Message) {

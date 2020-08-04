@@ -15,6 +15,7 @@ class TextSection: UIView, UITextFieldDelegate {
         
         textField.placeholder = textName
         addSubview(textField)
+        textField.autocorrectionType = .no
         textField.delegate = self
         textField.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: screen.width - 160, height: 50)
         textField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

@@ -103,7 +103,6 @@ class ProfileViewController: UIViewController {
             Database.database().reference().child("users").child(Auth.auth().currentUser?.uid ?? "").observeSingleEvent(of: .value) { (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     let user = User(dictionary: dictionary)
-                    
 
                     
                     if user.imageUrl != "" {
