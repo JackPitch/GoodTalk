@@ -60,12 +60,30 @@ class ChatViewController: UITableViewController {
         tableView.invalidateIntrinsicContentSize()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return messages.count
+//    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return messages.count
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = messages[indexPath.item]
+        let message = messages[indexPath.section]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! ChatMessageCell
         cell.set(message: message)
         return cell

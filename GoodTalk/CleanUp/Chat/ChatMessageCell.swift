@@ -32,15 +32,17 @@ class ChatMessageCell: UITableViewCell {
            setupLeftOrientation()
         }
         
-        messageImageView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor).isActive = true
         messageImageView.topAnchor.constraint(equalTo: bubbleView.topAnchor).isActive = true
-        messageImageView.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
-        messageImageView.heightAnchor.constraint(equalToConstant: 260).isActive = true
+        messageImageView.widthAnchor.constraint(lessThanOrEqualToConstant: screen.width - 180).isActive = true
+        messageImageView.heightAnchor.constraint(equalToConstant: screen.width - 120).isActive = true
         
         if let messageImageUrl = message.imageUrl {
             messageImageView.loadImageUsingCacheWithUrlString(messageImageUrl)
             messageImageView.isHidden = false
+            bubbleView.bottomAnchor.constraint(equalTo: messageImageView.bottomAnchor).isActive = true
+            bubbleView.topAnchor.constraint(equalTo: messageImageView.topAnchor).isActive = true
             bubbleView.backgroundColor = UIColor.clear
+
         } else {
             messageImageView.isHidden = true
         }
@@ -55,6 +57,8 @@ class ChatMessageCell: UITableViewCell {
         bubbleView.anchor(top: messageLabel.topAnchor, left: messageLabel.leftAnchor, bottom: messageLabel.bottomAnchor, right: messageLabel.rightAnchor, paddingTop: -8, paddingLeft: -12, paddingBottom: -8, paddingRight: -12, width: 0, height: 0)
         bubbleView.backgroundColor = UIColor(red: 245 / 255, green: 201 / 255, blue: 88 / 255, alpha: 1)
         messageLabel.textColor = .white
+        
+        messageImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 
     func setupLeftOrientation() {
@@ -64,6 +68,8 @@ class ChatMessageCell: UITableViewCell {
 
         bubbleView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         messageLabel.textColor = .black
+        
+        messageImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
     }
     
     let messageLabel: UILabel = {
