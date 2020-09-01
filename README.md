@@ -1,3 +1,5 @@
+# GoodTalk
+
 ## General Info
 Elegant chat app that allows the user to either login
 or create an account. Once logged in, the user can search
