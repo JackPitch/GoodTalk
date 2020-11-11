@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct UserSearchButton: View {
+struct PresentContactsButton: View {
     var body: some View {
         Circle()
         .frame(width: 90, height: 90)
@@ -30,6 +30,26 @@ struct UserSearchButton: View {
 
 struct MessagesViewController_Previews: PreviewProvider {
     static var previews: some View {
-        UserSearchButton()
+        PresentContactsButton()
+    }
+}
+
+struct PresentSearchButton: View {
+    var body: some View {
+        Circle()
+        .frame(width: 50, height: 50)
+            .foregroundColor(Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)))
+        .overlay(
+            Image(systemName: "magnifyingglass")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .foregroundColor(.white)
+                .aspectRatio(contentMode: .fit)
+        )
+        .background(
+            Circle()
+            .stroke(lineWidth: 4)
+                .foregroundColor(Color(#colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)))
+        )
     }
 }

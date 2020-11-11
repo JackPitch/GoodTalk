@@ -19,14 +19,13 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
     let hostingController = UIHostingController(rootView: EmptySearchView())
     
     weak var delegate: MessagesDelegate!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         navigationItem.title = "Search"
         navigationItem.rightBarButtonItem = .init(title: "Done", style: .done, target: self, action: #selector(handleDismiss))
-        
         setupSearchBar()
         setupTableView()
         setupDataSource()
@@ -54,7 +53,7 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
     func setupDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, User>(tableView: tableView, cellProvider: { (tableView, indexPath, user) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! ContactCell
-            cell.set(user: user)
+            cell.set(user: user, userInfoEnabled: false)
             return cell
         })
     }
@@ -77,7 +76,11 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = filteredUsers[indexPath.row]
         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-        delegate.didTapGetUser(for: user)
+        
+        let profilePage = UserProfilePageViewController()
+        profilePage.didTapUser(user: user)
+        navigationController?.pushViewController(profilePage, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func getUsers() {
@@ -131,7 +134,6 @@ class UserSearchController: UIViewController, UITableViewDelegate, UITextFieldDe
         view.addSubview(hostingController.view)
         hostingController.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 25, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.bounds.width - 120, height: 100)
         hostingController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         
         view.addSubview(cancelSearchButton)
         cancelSearchButton.anchor(top: nil, left: nil, bottom: nil, right: hostingController.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)

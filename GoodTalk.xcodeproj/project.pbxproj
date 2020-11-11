@@ -3,10 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		811ACA77251671720022DAF3 /* RequestsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA76251671720022DAF3 /* RequestsTableVC.swift */; };
+		811ACA79251674290022DAF3 /* SentRequestsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA78251674290022DAF3 /* SentRequestsTableVC.swift */; };
+		811ACA7B2517B47D0022DAF3 /* RequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA7A2517B47D0022DAF3 /* RequestsCell.swift */; };
+		811ACA7D2517C4A70022DAF3 /* SentRequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA7C2517C4A70022DAF3 /* SentRequestsCell.swift */; };
+		811ACA7F251951D90022DAF3 /* ContactsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA7E251951D90022DAF3 /* ContactsPageViewController.swift */; };
+		811ACA81251D3F340022DAF3 /* StatusPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA80251D3F340022DAF3 /* StatusPopOver.swift */; };
+		811ACA84252B6C230022DAF3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 811ACA83252B6C230022DAF3 /* Lottie */; };
+		811ACA86252B6E1B0022DAF3 /* addedContact.json in Resources */ = {isa = PBXBuildFile; fileRef = 811ACA85252B6E1A0022DAF3 /* addedContact.json */; };
+		811ACA89252B6E8D0022DAF3 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811ACA88252B6E8D0022DAF3 /* LottieView.swift */; };
 		8120C48424C5DBAC00C74CF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */; };
 		8120C48624C5DBAC00C74CF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */; };
 		8120C48A24C5DBB200C74CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8120C48924C5DBB200C74CF6 /* Assets.xcassets */; };
@@ -34,16 +43,31 @@
 		8120C4CA24C5DD1800C74CF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8120C4C924C5DD1800C74CF6 /* GoogleService-Info.plist */; };
 		8120C4CC24C7254000C74CF6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4CB24C7254000C74CF6 /* ChatView.swift */; };
 		8120C4CE24C728EE00C74CF6 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4CD24C728EE00C74CF6 /* ChatMessageCell.swift */; };
-		8120C4D024C72CD700C74CF6 /* UserSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4CF24C72CD700C74CF6 /* UserSearchButton.swift */; };
+		8120C4D024C72CD700C74CF6 /* PresentContactsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4CF24C72CD700C74CF6 /* PresentContactsButton.swift */; };
 		8120C4D224C72DFD00C74CF6 /* ResizableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4D124C72DFD00C74CF6 /* ResizableTextField.swift */; };
 		8120C4D524CCD31D00C74CF6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4D424CCD31D00C74CF6 /* LoadingViewController.swift */; };
 		8120C4E824D0A1F300C74CF6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120C4E724D0A1F300C74CF6 /* ForgotPasswordViewController.swift */; };
+		813E68B12554797F0099FE5F /* MailHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E68B02554797F0099FE5F /* MailHandler.swift */; };
+		813E68B3255489CB0099FE5F /* ContactInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E68B2255489CB0099FE5F /* ContactInfoPage.swift */; };
+		813E68B52554BBE50099FE5F /* DeleteContactPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E68B42554BBE50099FE5F /* DeleteContactPage.swift */; };
+		81AF25042515616700413C07 /* UserProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AF25032515616700413C07 /* UserProfilePageViewController.swift */; };
+		81AF250625156DD000413C07 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AF250525156DD000413C07 /* MailViewController.swift */; };
+		81DF67E52534A41B00C8D27A /* sentRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 81DF67E42534A41B00C8D27A /* sentRequest.json */; };
+		81DF67E72534C7C200C8D27A /* CustomShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF67E62534C7C200C8D27A /* CustomShape.swift */; };
 		FF28F9262EC65B21645674E8 /* Pods_GoodTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02876B50C627F7F2C38D1A2 /* Pods_GoodTalk.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4780C624B35CA9F047C6EF15 /* Pods-GoodTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodTalk.debug.xcconfig"; path = "Target Support Files/Pods-GoodTalk/Pods-GoodTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		59F14BF7B788BF315E09BEFD /* Pods-GoodTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodTalk.release.xcconfig"; path = "Target Support Files/Pods-GoodTalk/Pods-GoodTalk.release.xcconfig"; sourceTree = "<group>"; };
+		811ACA76251671720022DAF3 /* RequestsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableVC.swift; sourceTree = "<group>"; };
+		811ACA78251674290022DAF3 /* SentRequestsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentRequestsTableVC.swift; sourceTree = "<group>"; };
+		811ACA7A2517B47D0022DAF3 /* RequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsCell.swift; sourceTree = "<group>"; };
+		811ACA7C2517C4A70022DAF3 /* SentRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentRequestsCell.swift; sourceTree = "<group>"; };
+		811ACA7E251951D90022DAF3 /* ContactsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPageViewController.swift; sourceTree = "<group>"; };
+		811ACA80251D3F340022DAF3 /* StatusPopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPopOver.swift; sourceTree = "<group>"; };
+		811ACA85252B6E1A0022DAF3 /* addedContact.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addedContact.json; sourceTree = "<group>"; };
+		811ACA88252B6E8D0022DAF3 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8120C48024C5DBAC00C74CF6 /* GoodTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,10 +97,17 @@
 		8120C4C924C5DD1800C74CF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8120C4CB24C7254000C74CF6 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8120C4CD24C728EE00C74CF6 /* ChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
-		8120C4CF24C72CD700C74CF6 /* UserSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchButton.swift; sourceTree = "<group>"; };
+		8120C4CF24C72CD700C74CF6 /* PresentContactsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentContactsButton.swift; sourceTree = "<group>"; };
 		8120C4D124C72DFD00C74CF6 /* ResizableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableTextField.swift; sourceTree = "<group>"; };
 		8120C4D424CCD31D00C74CF6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		8120C4E724D0A1F300C74CF6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		813E68B02554797F0099FE5F /* MailHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHandler.swift; sourceTree = "<group>"; };
+		813E68B2255489CB0099FE5F /* ContactInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoPage.swift; sourceTree = "<group>"; };
+		813E68B42554BBE50099FE5F /* DeleteContactPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContactPage.swift; sourceTree = "<group>"; };
+		81AF25032515616700413C07 /* UserProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePageViewController.swift; sourceTree = "<group>"; };
+		81AF250525156DD000413C07 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		81DF67E42534A41B00C8D27A /* sentRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sentRequest.json; sourceTree = "<group>"; };
+		81DF67E62534C7C200C8D27A /* CustomShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShape.swift; sourceTree = "<group>"; };
 		E02876B50C627F7F2C38D1A2 /* Pods_GoodTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -86,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF28F9262EC65B21645674E8 /* Pods_GoodTalk.framework in Frameworks */,
+				811ACA84252B6C230022DAF3 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +131,30 @@
 				59F14BF7B788BF315E09BEFD /* Pods-GoodTalk.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		811ACA752516713E0022DAF3 /* Mail */ = {
+			isa = PBXGroup;
+			children = (
+				81AF250525156DD000413C07 /* MailViewController.swift */,
+				811ACA76251671720022DAF3 /* RequestsTableVC.swift */,
+				811ACA78251674290022DAF3 /* SentRequestsTableVC.swift */,
+				811ACA7A2517B47D0022DAF3 /* RequestsCell.swift */,
+				811ACA7C2517C4A70022DAF3 /* SentRequestsCell.swift */,
+				811ACA80251D3F340022DAF3 /* StatusPopOver.swift */,
+				813E68B02554797F0099FE5F /* MailHandler.swift */,
+			);
+			path = Mail;
+			sourceTree = "<group>";
+		};
+		811ACA87252B6E260022DAF3 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				81DF67E42534A41B00C8D27A /* sentRequest.json */,
+				811ACA85252B6E1A0022DAF3 /* addedContact.json */,
+				811ACA88252B6E8D0022DAF3 /* LottieView.swift */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		8120C47724C5DBAC00C74CF6 = {
@@ -124,6 +180,7 @@
 			children = (
 				8120C49724C5DBE900C74CF6 /* CleanUp */,
 				8120C4AA24C5DBE900C74CF6 /* ProfileViewController.swift */,
+				81DF67E62534C7C200C8D27A /* CustomShape.swift */,
 				8120C48324C5DBAC00C74CF6 /* AppDelegate.swift */,
 				8120C4A624C5DBE900C74CF6 /* Extension.swift */,
 				8120C48524C5DBAC00C74CF6 /* SceneDelegate.swift */,
@@ -147,6 +204,8 @@
 		8120C49724C5DBE900C74CF6 /* CleanUp */ = {
 			isa = PBXGroup;
 			children = (
+				811ACA87252B6E260022DAF3 /* Lottie */,
+				811ACA752516713E0022DAF3 /* Mail */,
 				8120C4D324CB3FCA00C74CF6 /* Credentials */,
 				8120C4D824CCDAFF00C74CF6 /* User Search */,
 				8120C4D724CCDAAD00C74CF6 /* Convsersations */,
@@ -199,6 +258,9 @@
 				8120C4A524C5DBE900C74CF6 /* SearchBackground.swift */,
 				8120C4A724C5DBE900C74CF6 /* MessagesViewController.swift */,
 				8120C4AB24C5DBE900C74CF6 /* MessageCell.swift */,
+				811ACA7E251951D90022DAF3 /* ContactsPageViewController.swift */,
+				813E68B2255489CB0099FE5F /* ContactInfoPage.swift */,
+				813E68B42554BBE50099FE5F /* DeleteContactPage.swift */,
 			);
 			path = Convsersations;
 			sourceTree = "<group>";
@@ -206,10 +268,11 @@
 		8120C4D824CCDAFF00C74CF6 /* User Search */ = {
 			isa = PBXGroup;
 			children = (
-				8120C4CF24C72CD700C74CF6 /* UserSearchButton.swift */,
+				8120C4CF24C72CD700C74CF6 /* PresentContactsButton.swift */,
 				8120C49B24C5DBE900C74CF6 /* EmptySearchView.swift */,
 				8120C49C24C5DBE900C74CF6 /* ContactCell.swift */,
 				8120C4AF24C5DBE900C74CF6 /* UserSearchController.swift */,
+				81AF25032515616700413C07 /* UserProfilePageViewController.swift */,
 			);
 			path = "User Search";
 			sourceTree = "<group>";
@@ -240,6 +303,9 @@
 			dependencies = (
 			);
 			name = GoodTalk;
+			packageProductDependencies = (
+				811ACA83252B6C230022DAF3 /* Lottie */,
+			);
 			productName = GoodTalk;
 			productReference = 8120C48024C5DBAC00C74CF6 /* GoodTalk.app */;
 			productType = "com.apple.product-type.application";
@@ -268,6 +334,9 @@
 				Base,
 			);
 			mainGroup = 8120C47724C5DBAC00C74CF6;
+			packageReferences = (
+				811ACA82252B6C230022DAF3 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 8120C48124C5DBAC00C74CF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -286,6 +355,8 @@
 				8120C48D24C5DBB200C74CF6 /* Preview Assets.xcassets in Resources */,
 				8120C4CA24C5DD1800C74CF6 /* GoogleService-Info.plist in Resources */,
 				8120C48A24C5DBB200C74CF6 /* Assets.xcassets in Resources */,
+				811ACA86252B6E1B0022DAF3 /* addedContact.json in Resources */,
+				81DF67E52534A41B00C8D27A /* sentRequest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,24 +417,37 @@
 				8120C4C024C5DBE900C74CF6 /* ChatRepresentable.swift in Sources */,
 				8120C48624C5DBAC00C74CF6 /* SceneDelegate.swift in Sources */,
 				8120C4B424C5DBE900C74CF6 /* EmptySearchView.swift in Sources */,
+				811ACA81251D3F340022DAF3 /* StatusPopOver.swift in Sources */,
 				8120C4CC24C7254000C74CF6 /* ChatView.swift in Sources */,
+				811ACA7B2517B47D0022DAF3 /* RequestsCell.swift in Sources */,
+				811ACA89252B6E8D0022DAF3 /* LottieView.swift in Sources */,
 				8120C4C824C5DBE900C74CF6 /* SuccessViewController.swift in Sources */,
 				8120C4C124C5DBE900C74CF6 /* LoginViewController.swift in Sources */,
+				811ACA7D2517C4A70022DAF3 /* SentRequestsCell.swift in Sources */,
+				811ACA79251674290022DAF3 /* SentRequestsTableVC.swift in Sources */,
+				811ACA77251671720022DAF3 /* RequestsTableVC.swift in Sources */,
 				8120C4B724C5DBE900C74CF6 /* Message.swift in Sources */,
 				8120C4B124C5DBE900C74CF6 /* SignUpViewController.swift in Sources */,
 				8120C4C324C5DBE900C74CF6 /* MessageCell.swift in Sources */,
+				811ACA7F251951D90022DAF3 /* ContactsPageViewController.swift in Sources */,
 				8120C4D224C72DFD00C74CF6 /* ResizableTextField.swift in Sources */,
 				8120C4B224C5DBE900C74CF6 /* ChatViewController.swift in Sources */,
 				8120C4BE24C5DBE900C74CF6 /* Extension.swift in Sources */,
 				8120C4CE24C728EE00C74CF6 /* ChatMessageCell.swift in Sources */,
 				8120C4BF24C5DBE900C74CF6 /* MessagesViewController.swift in Sources */,
-				8120C4D024C72CD700C74CF6 /* UserSearchButton.swift in Sources */,
+				8120C4D024C72CD700C74CF6 /* PresentContactsButton.swift in Sources */,
 				8120C4C724C5DBE900C74CF6 /* UserSearchController.swift in Sources */,
 				8120C4BB24C5DBE900C74CF6 /* PhotoUploadButton.swift in Sources */,
+				81AF25042515616700413C07 /* UserProfilePageViewController.swift in Sources */,
 				8120C4C424C5DBE900C74CF6 /* TextSection.swift in Sources */,
 				8120C4B924C5DBE900C74CF6 /* User.swift in Sources */,
 				8120C4C224C5DBE900C74CF6 /* ProfileViewController.swift in Sources */,
+				813E68B12554797F0099FE5F /* MailHandler.swift in Sources */,
+				81AF250625156DD000413C07 /* MailViewController.swift in Sources */,
 				8120C4E824D0A1F300C74CF6 /* ForgotPasswordViewController.swift in Sources */,
+				813E68B3255489CB0099FE5F /* ContactInfoPage.swift in Sources */,
+				81DF67E72534C7C200C8D27A /* CustomShape.swift in Sources */,
+				813E68B52554BBE50099FE5F /* DeleteContactPage.swift in Sources */,
 				8120C4BC24C5DBE900C74CF6 /* AlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +644,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		811ACA82252B6C230022DAF3 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		811ACA83252B6C230022DAF3 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 811ACA82252B6C230022DAF3 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8120C47824C5DBAC00C74CF6 /* Project object */;
 }

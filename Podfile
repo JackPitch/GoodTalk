@@ -7,6 +7,8 @@ target 'GoodTalk' do
 
   # Pods for GoodTalk
   
+  pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'

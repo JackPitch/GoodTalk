@@ -168,9 +168,6 @@ struct ChatBarView: View {
             }
         }
         
-        print("fromName: ", fromName)
-        
-        
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
         let toID = observedUser.user?.uuid ?? ""
@@ -178,7 +175,6 @@ struct ChatBarView: View {
         let fromID = Auth.auth().currentUser!.uid
         let timeStamp = Int(Date().timeIntervalSince1970)
         let values = ["textMessage": textMessage, "toID": toID, "toName": toName, "fromID": fromID, "timeStamp": timeStamp, "fromName": fromName] as [String : Any]
-        print(values)
         childRef.updateChildValues(values) { (err, ref) in
             if let err = err {
                 print(err)

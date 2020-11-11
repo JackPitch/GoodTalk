@@ -37,6 +37,10 @@ class ProfileViewController: UIViewController {
         usernameLabel.anchor(top: imagePicker.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(emailLabel)
+        emailLabel.anchor(top: usernameLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         setupSignOutButton()
     }
     
@@ -63,6 +67,14 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
+    let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "email"
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .systemGray2
+        return label
+    }()
+    
     let signOutButton: UIButton = {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(handleSignOut), for: .touchUpInside)
@@ -82,7 +94,7 @@ class ProfileViewController: UIViewController {
     func setupSignOutButton() {
         let hostingController = UIHostingController(rootView: SignOutButtonView())
         view.addSubview(hostingController.view)
-        hostingController.view.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: screen.width / 4, paddingRight: 0, width: 0, height: 0)
+        hostingController.view.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: screen.width / 5, paddingRight: 0, width: 0, height: 0)
         hostingController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(signOutButton)
@@ -111,6 +123,7 @@ class ProfileViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.profileImageView.sd_setImage(with: imageUrl)
                             self.usernameLabel.text = user.name
+                            self.emailLabel.text = user.email
                         }
                         
                         self.getData(from: imageUrl) { (data, _, err) in
@@ -129,6 +142,7 @@ class ProfileViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.profileImageView.image = UIImage(systemName: "person.crop.circle")
                             self.usernameLabel.text = user.name
+                            self.emailLabel.text = user.email
                         }
                     }
                 }

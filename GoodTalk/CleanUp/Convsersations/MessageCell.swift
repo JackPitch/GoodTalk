@@ -70,10 +70,10 @@ class MessageCell: UITableViewCell {
         }
         if let id = chatPartnerID {
             Database.database().reference().child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String: String] {
+                if let dictionary = snapshot.value as? [String: AnyObject] {
                     DispatchQueue.main.async {
-                        self.nameLabel.text = dictionary["name"] ?? "Unkown"
-                        self.imageUrl = dictionary["imageUrl"] ?? "Unknown"
+                        self.nameLabel.text = dictionary["name"] as? String
+                        self.imageUrl = dictionary["imageUrl"] as? String
                     }
                 }
             }, withCancel: nil)

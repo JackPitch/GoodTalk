@@ -25,9 +25,19 @@ class ContactCell: UITableViewCell {
         addSubview(emailLabel)
         emailLabel.anchor(top: nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
+        //setupInfoButton()
     }
     
-    func set(user: User) {
+    func setupInfoButton() {
+        addSubview(infoLabel)
+        infoLabel.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 20, height: 20)
+        infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        addSubview(infoButton)
+        infoButton.anchor(top: infoLabel.topAnchor, left: infoLabel.leftAnchor, bottom: infoLabel.bottomAnchor, right: infoLabel.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    }
+    
+    func set(user: User, userInfoEnabled: Bool) {
         nameLabel.text = user.name
         emailLabel.text = user.email
         if user.imageUrl == "" {
@@ -38,6 +48,7 @@ class ContactCell: UITableViewCell {
                 profileImageView.sd_setImage(with: url)
             }
         }
+        userInfoEnabled ? (infoButton.alpha = 1) : (infoButton.alpha = 0)
     }
     
     let profileImageView: UIImageView = {
@@ -61,6 +72,23 @@ class ContactCell: UITableViewCell {
         label.textColor = .gray
         return label
     }()
+    
+    let infoLabel: UIImageView = {
+        let iv = UIImageView(image: UIImage(systemName: "info.circle"))
+        iv.clipsToBounds = true
+        iv.tintColor = .systemGray
+        return iv
+    }()
+    
+    let infoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(handleUserInfo(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func handleUserInfo(sender: UIButton) {
+        print("go to user info page")
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

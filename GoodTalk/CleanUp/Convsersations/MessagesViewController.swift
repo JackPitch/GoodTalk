@@ -22,7 +22,13 @@ protocol SignInDelegate: class {
     func didSignIn()
 }
 
-class MessagesViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, ProfileVCDelegate {
+class MessagesViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate, ProfileVCDelegate, ContactsDelegate {
+    
+    func didTapContact(chatPartnerId: String) {
+        let newChatRepresentable = ChatView(observedUser: ObservedUser(chatPartnerId: chatPartnerId), chatPartnerId: chatPartnerId)
+        let hostingController = UIHostingController(rootView: newChatRepresentable)
+        navigationController?.pushViewController(hostingController, animated: true)
+    }
     
     func didTapSignOut() {
         let loginVC = LoginViewController()
@@ -43,6 +49,10 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
     var timer: Timer?
     var currentUser = ""
     
+    let emptyMailBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "envelope.badge"), style: .plain, target: self, action: #selector(handlePresentRequests))
+    
+    let mailBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "envelope"), style: .plain, target: self, action: #selector(handlePresentRequests))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
@@ -51,13 +61,39 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         setupSearchBar()
         setupTableView()
         setupDataSource()
-        setupUserSearchButton()
-        //setupTapDismiss()
+        setupContactsButton()
+        setupUserSearch()
+        
         tableView.separatorColor = .clear
         self.title = "Conversations"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle.fill"), style: .plain, target: self, action: #selector(handleGoToProfile))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "envelope"), style: .plain, target: self, action: #selector(handlePresentRequests))
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        checkIfUserHasMail()
+    }
+        
+    func checkIfUserHasMail() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let mailRef = Database.database().reference().child("mail")
+        let query = mailRef.queryOrdered(byChild: "requestTo").queryEqual(toValue: uid)
+        query.observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self else { return }
+            
+            if (snapshot.value as? [String: AnyObject]) != nil {
+                self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "envelope.badge"), style: .plain, target: self, action: #selector(self.handlePresentRequests)), animated: true)
+
+            } else {
+                self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "envelope"), style: .plain, target: self, action: #selector(self.handlePresentRequests)), animated: true)
+            }
+        }
+    }
+    
+    @objc func handlePresentRequests() {
+        let requestsVC = MailViewController()
+        navigationController?.pushViewController(requestsVC, animated: true)
     }
     
     func setupTapDismiss() {
@@ -225,31 +261,58 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         let message = isSearching ? filteredMessages[indexPath.row] : messages[indexPath.row]
         
         handleCancelSearch()
+        
         let newChatRepresentable = ChatView(observedUser: ObservedUser(chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? ""), chatPartnerId: (message.toID == Auth.auth().currentUser?.uid ? message.fromID : message.toID) ?? "")
         let hostingController = UIHostingController(rootView: newChatRepresentable)
-        navigationController?.pushViewController(hostingController, animated: true)
         self.tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.pushViewController(hostingController, animated: true)
     }
     
     
-    //MARK:- Present UserSearch Button
+    //MARK:- Present Contacts Button
     
-    func setupUserSearchButton() {
-        let hostingController = UIHostingController(rootView: UserSearchButton())
+    func setupContactsButton() {
+        let hostingController = UIHostingController(rootView: PresentContactsButton())
         view.addSubview(hostingController.view)
         hostingController.view.backgroundColor = .clear
         hostingController.view.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 40, paddingRight: 20, width: 0, height: 0)
         
-        view.addSubview(presentSearchButton)
-        presentSearchButton.anchor(top: hostingController.view.topAnchor, left: hostingController.view.leftAnchor, bottom: hostingController.view.bottomAnchor, right: hostingController.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 16, paddingRight: 24, width: 0, height: 0)
+        view.addSubview(presentContactsButton)
+        presentContactsButton.anchor(top: hostingController.view.topAnchor, left: hostingController.view.leftAnchor, bottom: hostingController.view.bottomAnchor, right: hostingController.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 16, paddingRight: 24, width: 0, height: 0)
     }
     
-    let presentSearchButton: UIButton = {
+    let presentContactsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(handlePresentContacts), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func handlePresentContacts() {
+        let contactsVC = ContactsPageViewController()
+        contactsVC.delegate = self
+        let navController = UINavigationController(rootViewController: contactsVC)
+        navController.modalPresentationStyle = .overFullScreen
+        present(navController, animated: true)
+    }
+    
+    //MARK:- Present Search Button
+    
+    let userSearchButton: UIButton = {
         let button = UIButton(type: .system)
         button.addTarget(self, action: #selector(handlePresentSearch), for: .touchUpInside)
         return button
     }()
-        
+    
+    let presentSearchButton = UIHostingController(rootView: PresentSearchButton())
+    
+    func setupUserSearch() {
+        view.addSubview(presentSearchButton.view)
+        presentSearchButton.view.backgroundColor = .clear
+        presentSearchButton.view.anchor(top: nil, left: nil, bottom: presentContactsButton.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 20, paddingRight: 24, width: 0, height: 0)
+        view.addSubview(userSearchButton)
+        userSearchButton.anchor(top: presentSearchButton.view.topAnchor, left: presentSearchButton.view.leftAnchor, bottom: presentSearchButton.view.bottomAnchor, right: presentSearchButton.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    }
+    
     @objc func handlePresentSearch() {
         let userSearchVC = UserSearchController()
         userSearchVC.delegate = self
@@ -257,7 +320,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         present(navController, animated: true, completion: nil)
     }
     
-    //MARK:- Firebase Functions For Getting Messages According to User
+    //MARK:- Firebase Functions For Getting Messages
     
     func getCurrentUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -267,13 +330,12 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
             }
         }
     }
-    
+        
     func observeUserMessages() {
         messages.removeAll()
         messagesDictionary.removeAll()
         filteredMessages.removeAll()
         
-        print("observing messages")
         getCurrentUser()
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -282,13 +344,28 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         ref.observe(.childAdded, with: { (snapshot) in
 
             let userId = snapshot.key
-            Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
-                let messageId = snapshot.key
-                self.fetchMessageWithMessageId(messageId)
-                
-            }, withCancel: nil)
-
-        }, withCancel: nil)
+            
+            self.checkIfUserIsInContacts(partnerId: userId)
+        })
+    }
+    
+    func checkIfUserIsInContacts(partnerId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference().child("users").child(uid)
+        ref.child("Contacts").child(partnerId).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Int {
+                if value == 1 {
+                    self.continueFetchingMessages(uid: uid, userId: partnerId)
+                }
+            }
+        })
+    }
+    
+    func continueFetchingMessages(uid: String, userId: String) {
+        Database.database().reference().child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
+            let messageId = snapshot.key
+            self.fetchMessageWithMessageId(messageId)
+        })
     }
 
     func fetchMessageWithMessageId(_ messageId: String) {
@@ -314,11 +391,9 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
         self.timer?.invalidate()
         
         self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-        
     }
         
     @objc func handleReloadTable() {
-        print("reloading table view")
         self.messages = Array(self.messagesDictionary.values)
         self.messages.sort(by: { (message1, message2) -> Bool in
             return message1.timeStamp!.intValue > message2.timeStamp!.intValue
@@ -328,7 +403,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITextField
             self.tableView.reloadData()
         }
         
-        updateData(messages: messages, animated: true)
+        updateData(messages: messages, animated: false)
         
     }
 }
