@@ -34,9 +34,7 @@ class RequestsTableVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         addEmptyView()
         getRequests()
     }
-    
-    #warning("upload new code base to github")
-        
+            
     func setupTableView() {
         tableView = UITableView(frame: view.bounds)
         view.addSubview(tableView)
